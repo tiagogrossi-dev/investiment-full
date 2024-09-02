@@ -1,0 +1,27 @@
+<form [formGroup]="investmentForm" (ngSubmit)="calculateInvestment()" class="form-container">
+  <h1>B3</h1>
+  <div>
+    <label for="initialValue">Valor Inicial:</label>
+    <input id="initialValue" formControlName="initialValue" type="number" />
+    <div *ngIf="investmentForm.get('initialValue')?.invalid && investmentForm.get('initialValue')?.touched">
+      <small>Informe um valor inicial válido (mínimo: 1).</small>
+    </div>
+  </div>
+
+  <div>
+    <label for="months">Prazo (meses):</label>
+    <input id="months" formControlName="months" type="number" />
+    <div *ngIf="investmentForm.get('months')?.invalid && investmentForm.get('months')?.touched">
+      <small>Informe um prazo válido (mínimo: 2 meses).</small>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="investmentForm.invalid">Calcular</button>
+</form>
+
+<!-- Mostrar o resultado após o cálculo -->
+<div *ngIf="result" class="result">
+  <h3>Resultado do Investimento:</h3>
+  <p><strong>Valor Bruto:</strong> {{ result.grossAmount | currency }}</p>
+  <p><strong>Valor Líquido:</strong> {{ result.netAmount | currency }}</p>
+</div>
